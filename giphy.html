@@ -16,16 +16,12 @@
 
 <body>
     <div id="char-buttons"></div>
-
-
     <form>
         <div class="form-group">
             <label for="giphy-input">Search for Harry Potter characters!</label>
             <input type="text" id="char-input"><br>
             <button type="button" class="btn btn-primary search-btn">Search</button>
         </div>
-
-
     </form>
     <div class="results"></div>
 
@@ -33,7 +29,7 @@
 
     <script>
         // create an array with initial values of buttons I want to be displayed by default
-        var harryPotter = ["Harry", "Hermione", "Ron"];
+        var topic = ["Harry Potter", "Hermione Granger", "Ron Weasley"];
 
         // function to query the gif website whenever a button is clicked on the page.
         function displayGif() {
@@ -50,31 +46,36 @@
 
                 for (var i = 0; results.length; i++) {
 
-                    var imageURL = response.data[i].url;
+                    var imageURL = response.data[i].images.fixed_height.url;
                     console.log("the url is: " + imageURL);
+
+                    var newLine = $("<p>");
 
                     var gifImage = $("<img>");
                     gifImage.attr("src", imageURL);
 
-                    $(".results").append("Rating: " + response.data[i].rating);
-                    $(".results").append(gifImage);
+                    newLine.append("Rating: " + response.data[i].rating);
+                    newLine.append(gifImage);
+
+                    $(".results").append(newLine);
+                    $(".results").append(newLine);
                 }
 
 
             });
         }
 
-        // create a function to create the buttons for the values in the object harryPotter
+        // create a function to create the buttons for the values in the object topic
 
         function createButtons() {
 
             $("#char-buttons").empty();
 
-            for (var i = 0; i < harryPotter.length; i++) {
+            for (var i = 0; i < topic.length; i++) {
                 var button = $("<button>");
-                button.attr({ "class": "gif-button", "value": harryPotter[i] });
+                button.attr({ "class": "gif-button", "value": topic[i] });
                 console.log(button);
-                button.text(harryPotter[i]);
+                button.text(topic[i]);
                 $("#char-buttons").append(button);
             }
 
@@ -87,9 +88,10 @@
         // Created a function to create a button when the user searches for something
         $(".search-btn").on("click", function (event) {
             event.preventDefault();
+            //$(".image-results").empty();
 
             var charSearch = $("#char-input").val().trim();
-            harryPotter.push(charSearch);
+            topic.push(charSearch);
             createButtons();
 
         });
