@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giphy Homework</title>
+    <script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous"></script>
+</head>
+<body>
+    <div id="char-buttons">
+
+    </div>
+    <script>
+
+        var harryPotter = ["Harry","Hermione","Ron"];
+
+        for(var i = 0; i < harryPotter.length; i++){
+            var button = $("<button>");
+                button.attr({"class": "gif-button", "value": harryPotter[i]});
+                    console.log(button);
+                        button.text(harryPotter[i]);
+                        $("#char-buttons").append(button);
+        }
+        
+
+
+
+
+    </script>
+    
+</body>
+</html>
