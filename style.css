@@ -1,8 +1,7 @@
-/* button, div, form, input {
-    margin: 10px;
-} */
+
 
 .gif-button {
     margin: 10px;
     padding: 1px 7px 2px;
+    color: rgb(163, 109, 109);
 }

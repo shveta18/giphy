@@ -15,6 +15,7 @@
 </head>
 
 <body>
+    <div class="container">
     <div id="char-buttons"></div>
     <form>
         <div class="form-group">
@@ -49,25 +50,24 @@
                     //on page load, the image loaded will be still
 
                     var imageURL = response.data[i].images.fixed_height_still.url;
+                    
                     var animateImgURL = response.data[i].images.fixed_height.url;
-                    console.log("the url is: " + imageURL);
-
+                    
+                    var stillURL = response.data[i].images.fixed_height_still.url;
+                    
                     var newLine = $("<p>");
 
                     var newLineImg = $("<p>");
 
                     var gifImage = $("<img>");
-                    gifImage.attr({ "src": imageURL, "data-animate": animateImgURL, "data-state": "still", "class": "gif" });
+                    gifImage.attr({ "src": imageURL, "data-animate": animateImgURL, "data-still": stillURL, "data-state": "still", "class": "gif" });
 
                     newLine.append("Rating: " + response.data[i].rating);
                     newLineImg.append(gifImage);
 
-                    $(".results").prepend(newLineImg);
-
                     $(".results").prepend(newLine);
-
+                    $(".results").prepend(newLineImg);
                 }
-
 
             });
         }
@@ -90,8 +90,6 @@
         createButtons();
 
 
-
-
         // Created a function to create a button when the user searches for something
         $(".search-btn").on("click", function (event) {
             event.preventDefault();
@@ -103,12 +101,11 @@
 
         });
 
-
         // start the click event listener - pull gifs - whenever any of the buttons are clicked
         $(document).on("click", ".gif-button", displayGif);
 
         // whenever any image is clicked change it's status
-        $(".gif").on("click", function (event) {
+        $(document).on("click", ".gif", function (event) {
             var state = $(this).attr("data-state");
             console.log(state);
             if (state === "still") {
@@ -121,12 +118,8 @@
 
         });
 
-
-
-
-
-
     </script>
+    </div>
 
 </body>
 
