@@ -46,19 +46,26 @@
 
                 for (var i = 0; results.length; i++) {
 
-                    var imageURL = response.data[i].images.fixed_height.url;
+                    //on page load, the image loaded will be still
+
+                    var imageURL = response.data[i].images.fixed_height_still.url;
+                    var animateImgURL = response.data[i].images.fixed_height.url;
                     console.log("the url is: " + imageURL);
 
                     var newLine = $("<p>");
 
+                    var newLineImg = $("<p>");
+
                     var gifImage = $("<img>");
-                    gifImage.attr("src", imageURL);
+                    gifImage.attr({ "src": imageURL, "data-animate": animateImgURL, "data-state": "still", "class": "gif" });
 
                     newLine.append("Rating: " + response.data[i].rating);
-                    newLine.append(gifImage);
+                    newLineImg.append(gifImage);
 
-                    $(".results").append(newLine);
-                    $(".results").append(newLine);
+                    $(".results").prepend(newLineImg);
+
+                    $(".results").prepend(newLine);
+
                 }
 
 
@@ -88,7 +95,7 @@
         // Created a function to create a button when the user searches for something
         $(".search-btn").on("click", function (event) {
             event.preventDefault();
-            //$(".image-results").empty();
+            //$(".image-results").empty(); I was trying to clear the page of every gif
 
             var charSearch = $("#char-input").val().trim();
             topic.push(charSearch);
@@ -100,6 +107,19 @@
         // start the click event listener - pull gifs - whenever any of the buttons are clicked
         $(document).on("click", ".gif-button", displayGif);
 
+        // whenever any image is clicked change it's status
+        $(".gif").on("click", function (event) {
+            var state = $(this).attr("data-state");
+            console.log(state);
+            if (state === "still") {
+                $(this).attr("src", $(this).attr("data-animate"));
+                $(this).attr("data-state", "animate");
+            } else {
+                $(this).attr("src", $(this).attr("data-still"));
+                $(this).attr("data-state", "still");
+            }
+
+        });
 
 
 
